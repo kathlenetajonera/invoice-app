@@ -17,6 +17,7 @@ export default {
                 orange: '#ff8f00',
                 red: '#ec5757',
                 navbar: '#373b53',
+                input: '#ced4da',
                 'light-gray': '#f2f2f2',
                 'light-bg': '#f9fafe',
                 'light-green': 'rgba(51,214,159,.06)',
@@ -25,15 +26,21 @@ export default {
             },
             backgroundImage: {
                 check: 'url("/src/assets/icon-check.svg")',
+                'arrow-down': 'url("/src/assets/icon-arrow-down.svg")',
             },
             spacing: {
                 navbar: '5.813rem',
+                'form-container': '38.75rem',
             },
             maxWidth: {
                 container: '45.625rem',
             },
             boxShadow: {
                 item: '0 .5rem 1rem #00000005',
+                dropdown: '0 .5rem 1rem #0000001a',
+            },
+            borderRadius: {
+                navbar: '1.25rem',
             },
         },
     },

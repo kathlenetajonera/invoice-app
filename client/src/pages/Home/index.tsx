@@ -1,9 +1,14 @@
-import Button from '../../components/Button';
-import Item from '../../components/Item';
+import { useState } from 'react';
 import Container from '../../components/Layout/Container';
 import StatusFilter from '../../components/StatusFilter';
+import InvoiceForm from '../../components/InvoiceForm';
+import Button from '../../components/Button';
+import Card from '../../components/Card';
+import Plus from '../../components/Icons/Plus';
 
 function Home() {
+    const [showForm, setShowForm] = useState(false);
+
     return (
         <Container>
             <div className="relative flex justify-between items-center mb-14">
@@ -16,24 +21,30 @@ function Home() {
 
                 <div className="flex items-center">
                     <StatusFilter />
-                    <Button />
+                    <Button
+                        icon={<Plus />}
+                        label="New invoice"
+                        onClick={() => setShowForm(true)}
+                    />
                 </div>
             </div>
 
             <div>
-                <Item />
-                <Item />
-                <Item />
-                <Item />
-                <Item />
-                <Item />
-                <Item />
-                <Item />
-                <Item />
-                <Item />
-                <Item />
-                <Item />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
             </div>
+
+            <InvoiceForm showForm={showForm} setShowForm={setShowForm} />
         </Container>
     );
 }

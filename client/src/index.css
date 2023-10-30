@@ -1,5 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#invoice-form::-webkit-scrollbar {
+    width: 8px;
+}
+
+#invoice-form::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+#invoice-form::-webkit-scrollbar-thumb {
+    background-color: #7c5dfa;
+}

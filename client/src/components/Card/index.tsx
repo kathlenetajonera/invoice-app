@@ -1,9 +1,9 @@
 import ArrowRight from '../Icons/ArrowRight';
 import Status from '../Status';
 
-const Item = () => {
+const Card = () => {
     return (
-        <div className="bg-white flex items-center justify-between py-4 px-6 rounded-lg text-[0.938rem] text-gray mb-4 shadow-item">
+        <div className="bg-white flex items-center justify-between py-4 px-6 rounded-lg text-[0.938rem] text-gray mb-4 shadow-item cursor-pointer transition-[border] border-[1px] border-transparent hover:border-violet">
             <div className="flex items-center">
                 <p className="mr-10">
                     #<span className="text-black font-bold">ASDF</span>
@@ -24,4 +24,4 @@ const Item = () => {
     );
 };
 
-export default Item;
+export default Card;
