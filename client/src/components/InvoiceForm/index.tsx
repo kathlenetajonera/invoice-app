@@ -4,6 +4,7 @@ import SelectField from '../FormElements/SelectField';
 import DateField from '../FormElements/DateField';
 import ItemList from './ItemList';
 import Button from '../Button';
+import Close from '../Icons/Close';
 
 type Props = {
     showForm: boolean;
@@ -23,9 +24,15 @@ const InvoiceForm = ({ showForm, setShowForm }: Props) => {
                 id="invoice-form"
                 className={`fixed top-0 left-0 bottom-0 bg-white w-form-container ml-[calc(5.813rem-1rem)] p-12 overflow-y-auto z-10 transition-transform duration-500 ${
                     showForm ? 'translate-x-0' : '-translate-x-full'
-                }`}
+                } lg:ml-0 lg:mt-navbar md:w-full md:p-6`}
             >
-                <h2 className="text-3xl font-semibold mb-8">New Invoice</h2>
+                <div className="mb-8 md:flex md:items-center md:justify-between">
+                    <h2 className="text-3xl font-semibold">New Invoice</h2>
+                    <Close
+                        customClass="hidden md:block"
+                        onClick={() => setShowForm(false)}
+                    />
+                </div>
 
                 <Formik initialValues={initialValues} onSubmit={handleSubmit}>
                     <Form>
@@ -33,7 +40,7 @@ const InvoiceForm = ({ showForm, setShowForm }: Props) => {
                             <p className="text-violet mb-4">Bill From</p>
                             <TextField />
 
-                            <div className="grid grid-cols-3 gap-6 -mb-6">
+                            <div className="grid grid-cols-3 gap-6 -mb-6 md:gap-3">
                                 <TextField />
                                 <TextField />
                                 <TextField />
@@ -45,13 +52,13 @@ const InvoiceForm = ({ showForm, setShowForm }: Props) => {
                             <TextField />
                             <TextField />
 
-                            <div className="grid grid-cols-3 gap-6">
+                            <div className="grid grid-cols-3 gap-6 md:gap-3">
                                 <TextField />
                                 <TextField />
                                 <TextField />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-6">
+                            <div className="grid grid-cols-2 gap-6 md:gap-3">
                                 <DateField />
                                 <SelectField />
                             </div>

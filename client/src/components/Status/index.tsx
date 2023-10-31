@@ -5,7 +5,7 @@ const Status = () => {
 
     return (
         <div
-            className={`flex items-baseline ${variants[type].bg} px-8 py-2 rounded-lg`}
+            className={`flex items-baseline ${variants[type].bg} px-8 py-2 rounded-lg md:py-3`}
         >
             <span
                 className={`block w-2 h-2 ${variants[type].dot} rounded-full mr-2`}

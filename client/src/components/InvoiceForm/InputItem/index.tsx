@@ -3,8 +3,8 @@ import { inputClassName } from '../../FormElements/TextField';
 
 const InputItem = () => {
     return (
-        <div className="grid grid-cols-4 gap-6 items-center mb-3">
-            <input type="text" className={inputClassName} />
+        <div className="grid grid-cols-4 gap-6 items-center mb-3 md:grid-cols-3 md:gap-3">
+            <input type="text" className={`${inputClassName} md:col-span-3`} />
             <input type="number" className={inputClassName} />
             <input type="text" className={inputClassName} />
 

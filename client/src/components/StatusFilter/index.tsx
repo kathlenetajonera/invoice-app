@@ -21,30 +21,30 @@ const StatusFilter = () => {
     }, []);
 
     return (
-        <>
-            <span className="flex items-baseline mr-8">
+        <div className="relative">
+            <span className="flex items-baseline mr-8 md:mr-4">
                 <button
                     ref={ref}
                     className="mr-3 text-sm font-medium"
                     onClick={() => setShowFilter(!showFilter)}
                 >
-                    Filter by Status
+                    Filter<span className="md:hidden"> by Status</span>
                 </button>
                 <ArrowDown />
             </span>
 
             <div
-                className={`w-[11.25rem] absolute bottom-0 translate-y-full bg-white p-6 rounded-lg shadow-dropdown transition-opacity ${
+                className={`w-[11.25rem] absolute bottom-0 translate-y-[115%] bg-white p-6 rounded-lg shadow-dropdown z-10 transition-opacity ${
                     showFilter
                         ? 'opacity-100 pointer-events-auto'
                         : 'opacity-0 pointer-events-none'
-                }`}
+                } md:-left-[1rem]`}
             >
                 <Checkbox />
                 <Checkbox />
                 <Checkbox />
             </div>
-        </>
+        </div>
     );
 };
 

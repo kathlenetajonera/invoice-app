@@ -7,7 +7,7 @@ const Toggle = () => {
 
     return (
         <div
-            className="flex justify-center pb-8 cursor-pointer"
+            className="flex justify-center pb-8 cursor-pointer lg:pb-0 lg:pr-8"
             onClick={() => setIsDark(!isDark)}
         >
             {isDark ? <Moon /> : <Sun />}

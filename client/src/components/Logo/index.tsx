@@ -3,7 +3,7 @@ import logo from '../../assets/logo.png';
 const Logo = () => {
     return (
         <a href="/">
-            <img src={logo} alt="logo" />
+            <img src={logo} alt="logo" className="max-h-navbar" />
         </a>
     );
 };

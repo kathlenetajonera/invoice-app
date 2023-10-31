@@ -6,7 +6,7 @@ type Props = {
 
 const Container = ({ children }: Props) => {
     return (
-        <div className="ml-navbar min-h-screen bg-light-bg py-[4.5rem]">
+        <div className="ml-navbar min-h-screen bg-light-bg py-[4.5rem] lg:ml-0 lg:mt-navbar lg:py-10 lg:px-4">
             <div className="max-w-container mx-auto">{children}</div>
         </div>
     );

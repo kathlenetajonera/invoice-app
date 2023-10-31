@@ -16,14 +16,17 @@ function Home() {
                     <h1 className="text-[2rem] leading-9 font-semibold">
                         Invoices
                     </h1>
-                    <p className="text-gray">There are 10 total invoices</p>
+                    <p className="text-gray">
+                        <span className="md:hidden">There are</span> 10 total
+                        invoices
+                    </p>
                 </div>
 
                 <div className="flex items-center">
                     <StatusFilter />
                     <Button
                         icon={<Plus />}
-                        label="New invoice"
+                        label={window.innerWidth < 768 ? 'New' : 'New invoice'}
                         onClick={() => setShowForm(true)}
                     />
                 </div>
