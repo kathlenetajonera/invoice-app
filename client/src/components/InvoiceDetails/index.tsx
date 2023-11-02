@@ -1,19 +1,43 @@
-const InvoiceDetails = () => {
+import { formatCurrency, formatToDateString } from '../../utils/functions';
+
+const InvoiceDetails = ({ data }) => {
+    const { referenceNumber, projectDescription, date } = data;
+    const {
+        streetAddress: fromStreetAddress,
+        city: fromCity,
+        postCode: fromPostCode,
+        country: fromCountry,
+    } = data.billFrom;
+    const {
+        clientName,
+        clientEmail,
+        streetAddress: toStreetAddress,
+        city: toCity,
+        postCode: toPostCode,
+        country: toCountry,
+    } = data.billTo;
+
+    const items = data.items;
+    const amountDue = items.reduce((total, acc) => total + acc.total, 0);
+
     return (
         <div className="bg-white px-8 py-10 shadow-item text-gray text-15 rounded-lg md:mb-24">
             <div className="flex justify-between md:flex-col md:gap-6">
                 <div>
                     <p className="text-lg">
-                        #<span className="text-black font-bold">ASDF</span>
+                        #
+                        <span className="text-black font-bold">
+                            {referenceNumber}
+                        </span>
                     </p>
-                    <p>Lorem ipsum</p>
+                    <p>{projectDescription}</p>
                 </div>
 
                 <div>
-                    <p>15 Waterview Crescent</p>
-                    <p>O'Halloran Hill</p>
-                    <p>5158</p>
-                    <p>Australia</p>
+                    <p>{fromStreetAddress}</p>
+                    <p>{fromCity}</p>
+                    <p>{fromPostCode}</p>
+                    <p>{fromCountry}</p>
                 </div>
             </div>
 
@@ -22,31 +46,31 @@ const InvoiceDetails = () => {
                     <div className="mb-8">
                         <p>Invoice Date</p>
                         <p className="text-black text-lg font-semibold">
-                            30 Oct 2023
+                            {formatToDateString(date)}
                         </p>
                     </div>
                     <div>
                         <p>Payment Date</p>
                         <p className="text-black text-lg font-semibold">
-                            30 Oct 2023
+                            {formatToDateString(date)}
                         </p>
                     </div>
                 </div>
                 <div>
                     <p>Bill To</p>
                     <p className="text-black text-lg font-semibold">
-                        Lorem ipsum
+                        {clientName}
                     </p>
 
-                    <p>15 Waterview Crescent</p>
-                    <p>O'Halloran Hill</p>
-                    <p>5158</p>
-                    <p>Australia</p>
+                    <p>{toStreetAddress}</p>
+                    <p>{toCity}</p>
+                    <p>{toPostCode}</p>
+                    <p>{toCountry}</p>
                 </div>
                 <div className="md:mt-6">
                     <p>Sent To</p>
                     <p className="text-black text-lg font-semibold">
-                        test@email.com
+                        {clientEmail}
                     </p>
                 </div>
             </div>
@@ -61,27 +85,36 @@ const InvoiceDetails = () => {
                     </div>
 
                     <div>
-                        <div className="flex font-semibold md:items-center">
-                            <div className="flex-1 basis-1/2">
-                                <p className="text-black">Lorem ipsum</p>
+                        {items.map(({ _id, name, qty, price, total }) => (
+                            <div
+                                key={_id}
+                                className="flex font-semibold md:items-center"
+                            >
+                                <div className="flex-1 basis-1/2">
+                                    <p className="text-black">{name}</p>
 
-                                <div className="hidden md:block">
-                                    <p>1 x P 100.00</p>
+                                    <div className="hidden md:block">
+                                        <p>
+                                            {qty} x {formatCurrency(price)}
+                                        </p>
+                                    </div>
                                 </div>
+                                <p className="flex-1 md:hidden">{qty}</p>
+                                <p className="flex-1 md:hidden text-right">
+                                    {formatCurrency(price)}
+                                </p>
+                                <p className="flex-1 text-right text-black md:whitespace-nowrap">
+                                    {formatCurrency(total)}
+                                </p>
                             </div>
-                            <p className="flex-1 md:hidden">1</p>
-                            <p className="flex-1 md:hidden text-right">
-                                P 100.00
-                            </p>
-                            <p className="flex-1 text-right text-black md:whitespace-nowrap">
-                                P 100.00
-                            </p>
-                        </div>
+                        ))}
                     </div>
                 </div>
                 <div className="flex items-center justify-between bg-navbar p-8 rounded-b-lg text-white">
                     <p className="text-base md:text-sm">Amount Due</p>
-                    <p className="text-3xl font-bold md:text-2xl">P100.00</p>
+                    <p className="text-3xl font-bold md:text-2xl">
+                        {formatCurrency(amountDue)}
+                    </p>
                 </div>
             </div>
         </div>

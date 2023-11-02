@@ -1,14 +1,24 @@
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useField } from 'formik';
+import dayjs from 'dayjs';
 import { inputClassName, labelClassName } from '../TextField';
 
-const DateField = () => {
+const DateField = ({ name, label }) => {
+    const [field, meta, helpers] = useField(name);
+
+    const { value } = meta;
+    const { setValue } = helpers;
+
     const onChange = (date: any) => {
-        console.log('\x1b[36m%s\x1b[0m', 'date ', date);
+        const formattedValue = dayjs(date).format('MM/DD/YYYY');
+        setValue(formattedValue);
     };
 
     const CustomInput = () => (
-        <div className={`${inputClassName} cursor-pointer`}></div>
+        <div className={`${inputClassName} flex items-center cursor-pointer`}>
+            {value}
+        </div>
     );
 
     const CustomIcon = () => (
@@ -28,7 +38,7 @@ const DateField = () => {
 
     return (
         <label className={labelClassName}>
-            Invoice Date
+            {label}
             <DatePicker
                 showIcon
                 icon={CustomIcon()}

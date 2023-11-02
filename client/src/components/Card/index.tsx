@@ -1,28 +1,40 @@
 import { Link } from 'react-router-dom';
 import ArrowRight from '../Icons/ArrowRight';
 import Status from '../Status';
+import { formatCurrency, formatToDateString } from '../../utils/functions';
 
-const Card = () => {
+const Card = (props: any) => {
+    const { referenceNumber, status, date } = props;
+    const { clientName } = props.billTo;
+
+    const total = props.items.reduce(
+        (total: number, acc) => acc.total + total,
+        0
+    );
+
     return (
         <Link
-            to={`/invoice`}
+            to={`/invoice/${referenceNumber}`}
             className="bg-white flex items-center justify-between py-4 px-6 rounded-lg text-15 text-gray mb-4 shadow-item cursor-pointer transition-[border] border-[1px] border-transparent hover:border-violet md:flex-col md:p-6 md:pb-4"
         >
             <div className="flex items-center md:w-full md:justify-between md:items-start">
                 <div className="flex items-center md:flex-col md:items-start">
-                    <p className="mr-10 md:mb-4">
-                        #<span className="text-black font-bold">ASDF</span>
+                    <p className="w-20 mr-10 md:mb-4">
+                        #
+                        <span className="text-black font-bold">
+                            {referenceNumber}
+                        </span>
                     </p>
-                    <p className="mr-10">Due 19 Aug 2021</p>
+                    <p className="mr-10">Due {formatToDateString(date)}</p>
                 </div>
-                <p className="mr-10 md:mr-0">Jensen Huang</p>
+                <p className="capitalize mr-10 md:mr-0">{clientName}</p>
             </div>
             <div className="flex items-center md:w-full md:justify-between">
                 <p className="mr-9 text-xl text-black font-semibold">
-                    P1,800.90
+                    {formatCurrency(total)}
                 </p>
                 <span className="relative mr-4 md:mr-0 md:-top-3">
-                    <Status />
+                    <Status type={status} />
                 </span>
                 <ArrowRight customClass="md:hidden" />
             </div>

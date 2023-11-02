@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { networkRequest } from '../../utils/networkRequest';
 import Container from '../../components/Layout/Container';
 import StatusFilter from '../../components/StatusFilter';
 import InvoiceForm from '../../components/InvoiceForm';
@@ -8,6 +9,19 @@ import Plus from '../../components/Icons/Plus';
 
 function Home() {
     const [showForm, setShowForm] = useState(false);
+    const [invoices, setInvoices] = useState([]);
+
+    const fetchData = async () => {
+        const data = await networkRequest('api/invoice');
+
+        if (data && data.length) {
+            setInvoices(data);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <Container>
@@ -33,18 +47,9 @@ function Home() {
             </div>
 
             <div>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {invoices.map((invoice) => (
+                    <Card key={invoice._id} {...invoice} />
+                ))}
             </div>
 
             <InvoiceForm showForm={showForm} setShowForm={setShowForm} />

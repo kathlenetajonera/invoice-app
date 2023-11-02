@@ -11,9 +11,38 @@ type Props = {
     setShowForm: (show: boolean) => void;
 };
 
-const InvoiceForm = ({ showForm, setShowForm }: Props) => {
-    const initialValues = {};
+const initialValues = {
+    referenceNumber: '',
+    status: '',
+    date: '',
+    payment_date: '',
+    paymentTerms: '',
+    projectDescription: '',
+    billFrom: {
+        streetAddress: '',
+        city: '',
+        postCode: '',
+        country: '',
+    },
+    billTo: {
+        clientName: '',
+        clientEmail: '',
+        streetAddress: '',
+        city: '',
+        postCode: '',
+        country: '',
+    },
+    items: [
+        {
+            name: '',
+            qty: undefined,
+            price: undefined,
+            total: undefined,
+        },
+    ],
+};
 
+const InvoiceForm = ({ showForm, setShowForm }: Props) => {
     const handleSubmit = (data: any) => {
         console.log('\x1b[36m%s\x1b[0m', 'submit invoice', data);
     };
@@ -38,32 +67,59 @@ const InvoiceForm = ({ showForm, setShowForm }: Props) => {
                     <Form>
                         <div className="mb-10">
                             <p className="text-violet mb-4">Bill From</p>
-                            <TextField />
+                            <TextField
+                                name="billFrom.streetAddress"
+                                label="Street address"
+                            />
 
                             <div className="grid grid-cols-3 gap-6 -mb-6 md:gap-3">
-                                <TextField />
-                                <TextField />
-                                <TextField />
+                                <TextField name="billFrom.city" label="City" />
+                                <TextField
+                                    name="billFrom.postCode"
+                                    label="Post Code"
+                                />
+                                <TextField
+                                    name="billFrom.country"
+                                    label="Country"
+                                />
                             </div>
                         </div>
                         <div className="mb-10">
                             <p className="text-violet mb-4">Bill To</p>
-                            <TextField />
-                            <TextField />
-                            <TextField />
+                            <TextField
+                                name="billTo.clientName"
+                                label="Client's Name"
+                            />
+                            <TextField
+                                name="billTo.clientEmail"
+                                label="Client's Email"
+                            />
+                            <TextField
+                                name="billTo.streetAddress"
+                                label="Street Address"
+                            />
 
                             <div className="grid grid-cols-3 gap-6 md:gap-3">
-                                <TextField />
-                                <TextField />
-                                <TextField />
+                                <TextField name="billTo.city" label="City" />
+                                <TextField
+                                    name="billTo.postCode"
+                                    label="Post Code"
+                                />
+                                <TextField
+                                    name="billTo.country"
+                                    label="Country"
+                                />
                             </div>
 
                             <div className="grid grid-cols-2 gap-6 md:gap-3">
-                                <DateField />
+                                <DateField name="date" label="Invoice Date" />
                                 <SelectField />
                             </div>
 
-                            <TextField />
+                            <TextField
+                                name="projectDescription"
+                                label="Project Description"
+                            />
                         </div>
                         <div className="mb-12">
                             <h3 className="text-2xl text-gray">Item List</h3>

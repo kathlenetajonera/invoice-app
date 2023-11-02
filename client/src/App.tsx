@@ -1,25 +1,18 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Invoice from './pages/Invoice';
 
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <Home />,
-    },
-    {
-        path: '/invoice',
-        element: <Invoice />,
-    },
-]);
-
 function App() {
     return (
-        <>
+        <Router>
             <Navbar />
-            <RouterProvider router={router} />
-        </>
+
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/invoice/:referenceNumber" component={Invoice} />
+            </Switch>
+        </Router>
     );
 }
 
