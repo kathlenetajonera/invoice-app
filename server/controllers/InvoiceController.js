@@ -11,7 +11,12 @@ const getInvoices = async (req, res) => {
 
 const addInvoice = async (req, res) => {
     try {
-        const invoice = await Invoice.create(req.body);
+        if (!req.body) {
+            return res.status(400).json({ error: 'Invalid form data' });
+        }
+        const payload = req.body;
+        const invoice = await Invoice.create(payload);
+        
         res.status(200).json(invoice);
     } catch (error) {
         res.status(400).json({ error: error.message });

@@ -1,4 +1,9 @@
+import { useRef } from 'react';
 import { Form, Formik } from 'formik';
+import cryptoRandomString from 'crypto-random-string';
+import { networkRequest } from '../../utils/networkRequest';
+import { initialValues, paymentTerms, validationSchema } from './data';
+import { InvoiceType } from './types';
 import TextField from '../FormElements/TextField';
 import SelectField from '../FormElements/SelectField';
 import DateField from '../FormElements/DateField';
@@ -11,40 +16,41 @@ type Props = {
     setShowForm: (show: boolean) => void;
 };
 
-const initialValues = {
-    referenceNumber: '',
-    status: '',
-    date: '',
-    payment_date: '',
-    paymentTerms: '',
-    projectDescription: '',
-    billFrom: {
-        streetAddress: '',
-        city: '',
-        postCode: '',
-        country: '',
-    },
-    billTo: {
-        clientName: '',
-        clientEmail: '',
-        streetAddress: '',
-        city: '',
-        postCode: '',
-        country: '',
-    },
-    items: [
-        {
-            name: '',
-            qty: undefined,
-            price: undefined,
-            total: undefined,
-        },
-    ],
-};
-
 const InvoiceForm = ({ showForm, setShowForm }: Props) => {
-    const handleSubmit = (data: any) => {
-        console.log('\x1b[36m%s\x1b[0m', 'submit invoice', data);
+    const status = useRef('pending');
+
+    const handleSubmit = async (data: InvoiceType) => {
+        const referenceNumber = cryptoRandomString({
+            length: 6,
+            type: 'alphanumeric',
+        });
+        const payload = {
+            ...data,
+            referenceNumber,
+            status: status.current,
+            paymentDate: '',
+        };
+
+        submitForm(payload);
+    };
+
+    const submitForm = async (payload: InvoiceType) => {
+        try {
+            const res = await networkRequest('api/invoice', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (res._id) {
+                setShowForm(false);
+            }
+        } catch (error) {
+            console.log('\x1b[36m%s\x1b[0m', 'Error ', error);
+        }
     };
 
     return (
@@ -63,7 +69,11 @@ const InvoiceForm = ({ showForm, setShowForm }: Props) => {
                     />
                 </div>
 
-                <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSubmit}
+                >
                     <Form>
                         <div className="mb-10">
                             <p className="text-violet mb-4">Bill From</p>
@@ -113,7 +123,11 @@ const InvoiceForm = ({ showForm, setShowForm }: Props) => {
 
                             <div className="grid grid-cols-2 gap-6 md:gap-3">
                                 <DateField name="date" label="Invoice Date" />
-                                <SelectField />
+                                <SelectField
+                                    name="paymentTerms"
+                                    label="Payment Terms"
+                                    options={paymentTerms}
+                                />
                             </div>
 
                             <TextField
@@ -123,19 +137,27 @@ const InvoiceForm = ({ showForm, setShowForm }: Props) => {
                         </div>
                         <div className="mb-12">
                             <h3 className="text-2xl text-gray">Item List</h3>
-                            <ItemList />
+                            <ItemList name="items" />
                         </div>
                         <div className="flex items-center justify-between">
-                            <Button type="tertiary" label="Discard" />
+                            <Button variant="tertiary" label="Discard" />
 
                             <div className="flex items-center">
                                 <span className="mr-2">
                                     <Button
-                                        type="secondary"
+                                        type="submit"
+                                        variant="secondary"
                                         label="Save as Draft"
+                                        onClick={() =>
+                                            (status.current = 'draft')
+                                        }
                                     />
                                 </span>
-                                <Button label="Save & Send" />
+                                <Button
+                                    type="submit"
+                                    label="Save & Send"
+                                    onClick={() => (status.current = 'pending')}
+                                />
                             </div>
                         </div>
                     </Form>

@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const itemSchema = new Schema({
     name: String,
     qty: Number,
-    price: Number,
+    price: String,
     total: Number,
 });
 
@@ -13,7 +13,7 @@ const invoiceSchema = new Schema(
         referenceNumber: String,
         status: String,
         date: String,
-        payment_date: String,
+        paymentDate: String,
         paymentTerms: String,
         projectDescription: String,
         billFrom: {

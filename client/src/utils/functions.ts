@@ -12,3 +12,7 @@ export const formatCurrency = (amount: number) => {
 export const formatToDateString = (date: string) => {
     return dayjs(date).format('DD MMM YYYY');
 };
+
+export const sanitizePrice = (val: string | number) => {
+    return typeof val === 'number' ? val : parseFloat(val.replace(/\D+/g, ''));
+};

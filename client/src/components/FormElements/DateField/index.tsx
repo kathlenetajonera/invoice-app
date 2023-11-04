@@ -1,13 +1,12 @@
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useField } from 'formik';
 import dayjs from 'dayjs';
+import { ErrorMessage, useField } from 'formik';
+import { FieldProps } from '../types';
 import { inputClassName, labelClassName } from '../TextField';
 
-const DateField = ({ name, label }) => {
-    const [field, meta, helpers] = useField(name);
-
-    const { value } = meta;
+const DateField = ({ name, label }: FieldProps) => {
+    const [_, meta, helpers] = useField(name);
     const { setValue } = helpers;
 
     const onChange = (date: any) => {
@@ -16,8 +15,12 @@ const DateField = ({ name, label }) => {
     };
 
     const CustomInput = () => (
-        <div className={`${inputClassName} flex items-center cursor-pointer`}>
-            {value}
+        <div
+            className={`${inputClassName} ${
+                meta.touched && meta.error ? 'border-red' : ''
+            } pt-1 flex items-center cursor-pointer`}
+        >
+            {meta.value}
         </div>
     );
 
@@ -38,7 +41,14 @@ const DateField = ({ name, label }) => {
 
     return (
         <label className={labelClassName}>
-            {label}
+            <div className="flex justify-between items-center">
+                {label}
+                <ErrorMessage
+                    name={name}
+                    component="span"
+                    className="text-red text-sm"
+                />
+            </div>
             <DatePicker
                 showIcon
                 icon={CustomIcon()}

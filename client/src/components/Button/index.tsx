@@ -2,15 +2,23 @@ import { ReactNode } from 'react';
 import Plus from '../Icons/Plus';
 
 type Props = {
-    type?: 'primary' | 'secondary' | 'tertiary' | 'delete';
+    type?: 'submit' | 'button';
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'delete';
     label: string;
     icon?: ReactNode;
     onClick?: () => void;
     customClass?: string;
 };
 
-const Button = ({ type, label, icon, onClick, customClass }: Props) => {
-    const buttonType = type || 'primary';
+const Button = ({
+    type = 'button',
+    variant,
+    label,
+    icon,
+    onClick,
+    customClass,
+}: Props) => {
+    const buttonType = variant || 'primary';
 
     const variants = {
         primary: 'bg-violet text-white',
@@ -21,6 +29,7 @@ const Button = ({ type, label, icon, onClick, customClass }: Props) => {
 
     return (
         <button
+            type={type}
             className={`${variants[buttonType]} ${
                 icon ? 'pl-2 pr-4' : 'px-6'
             } rounded-full h-12 flex items-center justify-center cursor-pointer transition-opacity hover:opacity-80 ${customClass}`}

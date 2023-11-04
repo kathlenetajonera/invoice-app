@@ -3,11 +3,15 @@ import { networkRequest } from '../../utils/networkRequest';
 import Status from '../Status';
 import Button from '../Button';
 
-const StatusBar = ({ status, refNumber }) => {
+type Props = {
+    status: 'paid' | 'pending' | 'draft';
+    refNumber: string;
+};
+
+const StatusBar = ({ status, refNumber }: Props) => {
     let history = useHistory();
 
     const handleDelete = async () => {
-        console.log('\x1b[36m%s\x1b[0m', 'delete', refNumber);
         try {
             await networkRequest(`api/invoice/${refNumber}`, {
                 method: 'DELETE',
@@ -26,14 +30,14 @@ const StatusBar = ({ status, refNumber }) => {
                 <Status type={status} />
             </div>
             <div className="flex items-center md:fixed md:bottom-0 md:left-0 md:bg-white md:w-full md:flex md:justify-center md:p-6">
-                <Button type="tertiary" label="Edit" customClass="mr-2" />
+                <Button variant="tertiary" label="Edit" customClass="mr-2" />
                 <Button
-                    type="delete"
+                    variant="delete"
                     label="Delete"
                     customClass="mr-2"
                     onClick={handleDelete}
                 />
-                <Button type="primary" label="Mark as paid" />
+                <Button variant="primary" label="Mark as paid" />
             </div>
         </div>
     );
