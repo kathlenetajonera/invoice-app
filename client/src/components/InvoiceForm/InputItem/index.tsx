@@ -10,6 +10,7 @@ import { ItemType } from '../types';
 type Props = {
     index: number;
     item: ItemType;
+    handleDelete: () => void;
 };
 
 const numberMask = createNumberMask({
@@ -17,7 +18,7 @@ const numberMask = createNumberMask({
     allowDecimal: true,
 });
 
-const InputItem = ({ index, item }: Props) => {
+const InputItem = ({ index, item, handleDelete }: Props) => {
     const [_, meta, helpers] = useField(`items.${index}`);
     const { setValue } = helpers;
     const [priceField] = useField(`items.${index}.price`);
@@ -56,7 +57,7 @@ const InputItem = ({ index, item }: Props) => {
                 <h4 className="text-black font-bold">
                     {formatCurrency(total)}
                 </h4>
-                <Delete />
+                <Delete onClick={handleDelete} />
             </div>
         </div>
     );

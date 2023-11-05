@@ -16,19 +16,29 @@ const ItemList = ({ name }: FieldProps) => {
 
     return (
         <div className="mt-6">
-            <div className="grid grid-cols-4 gap-6">
-                <p className={labelClassName}>Item Name</p>
-                <p className={labelClassName}>Qty.</p>
-                <p className={labelClassName}>Price</p>
-                <p className={labelClassName}>Total</p>
-            </div>
+            {meta.value.length > 0 && (
+                <div className="grid grid-cols-4 gap-6">
+                    <p className={labelClassName}>Item Name</p>
+                    <p className={labelClassName}>Qty.</p>
+                    <p className={labelClassName}>Price</p>
+                    <p className={labelClassName}>Total</p>
+                </div>
+            )}
 
             <FieldArray
                 name="items"
                 render={(arrayHelpers) => (
                     <>
                         {meta.value.map((item: ItemType, index: number) => (
-                            <InputItem key={index} index={index} item={item} />
+                            <InputItem
+                                key={index}
+                                index={index}
+                                item={item}
+                                handleDelete={() => {
+                                    if (meta.value.length === 1) return;
+                                    arrayHelpers.remove(index);
+                                }}
+                            />
                         ))}
                         <button
                             type="button"

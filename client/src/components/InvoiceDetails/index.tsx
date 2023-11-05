@@ -1,6 +1,11 @@
 import { formatCurrency, formatToDateString } from '../../utils/functions';
+import { InvoiceType } from '../InvoiceForm/types';
 
-const InvoiceDetails = ({ data }) => {
+type Props = {
+    data: InvoiceType;
+};
+
+const InvoiceDetails = ({ data }: Props) => {
     const { referenceNumber, projectDescription, date } = data;
     const {
         streetAddress: fromStreetAddress,
@@ -88,20 +93,20 @@ const InvoiceDetails = ({ data }) => {
                         {items.map(({ _id, name, qty, price, total }) => (
                             <div
                                 key={_id}
-                                className="flex font-semibold md:items-center"
+                                className="flex font-medium md:items-center"
                             >
                                 <div className="flex-1 basis-1/2">
                                     <p className="text-black">{name}</p>
 
                                     <div className="hidden md:block">
                                         <p>
-                                            {qty} x {formatCurrency(price)}
+                                            {qty} x {price}
                                         </p>
                                     </div>
                                 </div>
                                 <p className="flex-1 md:hidden">{qty}</p>
                                 <p className="flex-1 md:hidden text-right">
-                                    {formatCurrency(price)}
+                                    {price}
                                 </p>
                                 <p className="flex-1 text-right text-black md:whitespace-nowrap">
                                     {formatCurrency(total)}

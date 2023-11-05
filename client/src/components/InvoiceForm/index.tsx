@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Form, Formik } from 'formik';
 import cryptoRandomString from 'crypto-random-string';
 import { networkRequest } from '../../utils/networkRequest';
@@ -14,12 +14,27 @@ import Close from '../Icons/Close';
 type Props = {
     showForm: boolean;
     setShowForm: (show: boolean) => void;
+    updateState: (data: InvoiceType) => void;
+    initialData?: InvoiceType | null;
 };
 
-const InvoiceForm = ({ showForm, setShowForm }: Props) => {
-    const status = useRef('pending');
+const InvoiceForm = ({
+    showForm,
+    setShowForm,
+    updateState,
+    initialData,
+}: Props) => {
+    const [isSubmitting, setIsSubmitting] = useState('');
+    const status = useRef(initialData?.status || 'pending');
 
     const handleSubmit = async (data: InvoiceType) => {
+        setIsSubmitting(status.current);
+
+        if (initialData) {
+            submitForm(data, 'update');
+            return;
+        }
+
         const referenceNumber = cryptoRandomString({
             length: 6,
             type: 'alphanumeric',
@@ -31,13 +46,17 @@ const InvoiceForm = ({ showForm, setShowForm }: Props) => {
             paymentDate: '',
         };
 
-        submitForm(payload);
+        submitForm(payload, 'create');
     };
 
-    const submitForm = async (payload: InvoiceType) => {
+    const submitForm = async (payload: InvoiceType, action: string) => {
         try {
-            const res = await networkRequest('api/invoice', {
-                method: 'POST',
+            const isUpdate = action === 'update';
+            const endpoint = `api/invoice${
+                isUpdate ? `/${payload.referenceNumber}` : ''
+            }`;
+            const res = await networkRequest(endpoint, {
+                method: isUpdate ? 'PUT' : 'POST',
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
@@ -47,10 +66,17 @@ const InvoiceForm = ({ showForm, setShowForm }: Props) => {
 
             if (res._id) {
                 setShowForm(false);
+                setIsSubmitting('');
+                updateState(res);
             }
         } catch (error) {
-            console.log('\x1b[36m%s\x1b[0m', 'Error ', error);
+            console.log('\x1b[36m%s\x1b[0m', 'Error: ', error);
         }
+    };
+
+    const handleDiscard = (resetForm: () => void) => {
+        resetForm();
+        setShowForm(false);
     };
 
     return (
@@ -70,97 +96,151 @@ const InvoiceForm = ({ showForm, setShowForm }: Props) => {
                 </div>
 
                 <Formik
-                    initialValues={initialValues}
+                    initialValues={initialData || initialValues}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
-                    <Form>
-                        <div className="mb-10">
-                            <p className="text-violet mb-4">Bill From</p>
-                            <TextField
-                                name="billFrom.streetAddress"
-                                label="Street address"
-                            />
-
-                            <div className="grid grid-cols-3 gap-6 -mb-6 md:gap-3">
-                                <TextField name="billFrom.city" label="City" />
+                    {({ resetForm }) => (
+                        <Form>
+                            <div className="mb-10">
+                                <p className="text-violet mb-4">Bill From</p>
                                 <TextField
-                                    name="billFrom.postCode"
-                                    label="Post Code"
+                                    name="billFrom.streetAddress"
+                                    label="Street address"
+                                />
+
+                                <div className="grid grid-cols-3 gap-6 -mb-6 md:gap-3">
+                                    <TextField
+                                        name="billFrom.city"
+                                        label="City"
+                                    />
+                                    <TextField
+                                        name="billFrom.postCode"
+                                        label="Post Code"
+                                    />
+                                    <TextField
+                                        name="billFrom.country"
+                                        label="Country"
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-10">
+                                <p className="text-violet mb-4">Bill To</p>
+                                <TextField
+                                    name="billTo.clientName"
+                                    label="Client's Name"
                                 />
                                 <TextField
-                                    name="billFrom.country"
-                                    label="Country"
+                                    name="billTo.clientEmail"
+                                    label="Client's Email"
+                                />
+                                <TextField
+                                    name="billTo.streetAddress"
+                                    label="Street Address"
+                                />
+
+                                <div className="grid grid-cols-3 gap-6 md:gap-3">
+                                    <TextField
+                                        name="billTo.city"
+                                        label="City"
+                                    />
+                                    <TextField
+                                        name="billTo.postCode"
+                                        label="Post Code"
+                                    />
+                                    <TextField
+                                        name="billTo.country"
+                                        label="Country"
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-6 md:gap-3">
+                                    <DateField
+                                        name="date"
+                                        label="Invoice Date"
+                                    />
+                                    <SelectField
+                                        name="paymentTerms"
+                                        label="Payment Terms"
+                                        options={paymentTerms}
+                                    />
+                                </div>
+
+                                <TextField
+                                    name="projectDescription"
+                                    label="Project Description"
                                 />
                             </div>
-                        </div>
-                        <div className="mb-10">
-                            <p className="text-violet mb-4">Bill To</p>
-                            <TextField
-                                name="billTo.clientName"
-                                label="Client's Name"
-                            />
-                            <TextField
-                                name="billTo.clientEmail"
-                                label="Client's Email"
-                            />
-                            <TextField
-                                name="billTo.streetAddress"
-                                label="Street Address"
-                            />
-
-                            <div className="grid grid-cols-3 gap-6 md:gap-3">
-                                <TextField name="billTo.city" label="City" />
-                                <TextField
-                                    name="billTo.postCode"
-                                    label="Post Code"
-                                />
-                                <TextField
-                                    name="billTo.country"
-                                    label="Country"
-                                />
+                            <div className="mb-12">
+                                <h3 className="text-2xl text-gray">
+                                    Item List
+                                </h3>
+                                <ItemList name="items" />
                             </div>
-
-                            <div className="grid grid-cols-2 gap-6 md:gap-3">
-                                <DateField name="date" label="Invoice Date" />
-                                <SelectField
-                                    name="paymentTerms"
-                                    label="Payment Terms"
-                                    options={paymentTerms}
-                                />
-                            </div>
-
-                            <TextField
-                                name="projectDescription"
-                                label="Project Description"
-                            />
-                        </div>
-                        <div className="mb-12">
-                            <h3 className="text-2xl text-gray">Item List</h3>
-                            <ItemList name="items" />
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <Button variant="tertiary" label="Discard" />
-
-                            <div className="flex items-center">
-                                <span className="mr-2">
+                            {initialData ? (
+                                <div
+                                    className={`flex justify-end items-center ${
+                                        isSubmitting
+                                            ? 'pointer-events-none'
+                                            : 'pointer-events-auto'
+                                    }`}
+                                >
+                                    <span className="mr-2">
+                                        <Button
+                                            variant="tertiary"
+                                            label="Cancel"
+                                            onClick={() =>
+                                                handleDiscard(resetForm)
+                                            }
+                                        />
+                                    </span>
                                     <Button
                                         type="submit"
-                                        variant="secondary"
-                                        label="Save as Draft"
-                                        onClick={() =>
-                                            (status.current = 'draft')
-                                        }
+                                        label="Save Changes"
+                                        loading={isSubmitting.length > 0}
                                     />
-                                </span>
-                                <Button
-                                    type="submit"
-                                    label="Save & Send"
-                                    onClick={() => (status.current = 'pending')}
-                                />
-                            </div>
-                        </div>
-                    </Form>
+                                </div>
+                            ) : (
+                                <div className="flex items-center justify-between">
+                                    <Button
+                                        variant="tertiary"
+                                        label="Discard"
+                                        onClick={() => handleDiscard(resetForm)}
+                                    />
+
+                                    <div
+                                        className={`flex items-center ${
+                                            isSubmitting
+                                                ? 'pointer-events-none'
+                                                : 'pointer-events-auto'
+                                        }`}
+                                    >
+                                        <span className="mr-2">
+                                            <Button
+                                                type="submit"
+                                                variant="secondary"
+                                                label="Save as Draft"
+                                                loading={
+                                                    isSubmitting === 'draft'
+                                                }
+                                                onClick={() =>
+                                                    (status.current = 'draft')
+                                                }
+                                            />
+                                        </span>
+                                        <Button
+                                            type="submit"
+                                            label="Save & Send"
+                                            loading={isSubmitting === 'pending'}
+                                            onClick={() =>
+                                                (status.current = 'pending')
+                                            }
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                        </Form>
+                    )}
                 </Formik>
             </div>
 

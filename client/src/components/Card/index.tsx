@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
+import { formatCurrency, formatToDateString } from '../../utils/functions';
+import { InvoiceType } from '../InvoiceForm/types';
 import ArrowRight from '../Icons/ArrowRight';
 import Status from '../Status';
-import { formatCurrency, formatToDateString } from '../../utils/functions';
 
-const Card = (props: any) => {
+const Card = (props: InvoiceType) => {
     const { referenceNumber, status, date } = props;
     const { clientName } = props.billTo;
 
@@ -34,7 +35,7 @@ const Card = (props: any) => {
                     {formatCurrency(total)}
                 </p>
                 <span className="relative mr-4 md:mr-0 md:-top-3">
-                    <Status type={status} />
+                    <Status type={status as 'draft' | 'pending' | 'paid'} />
                 </span>
                 <ArrowRight customClass="md:hidden" />
             </div>

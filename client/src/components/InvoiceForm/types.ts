@@ -1,4 +1,8 @@
 export type InvoiceType = {
+    _id?: string;
+    referenceNumber?: string;
+    status?: string;
+
     date: string;
     paymentTerms: string;
     projectDescription: string;
@@ -16,17 +20,13 @@ export type InvoiceType = {
         postCode: string;
         country: string;
     };
-    items: {
-        name: string;
-        qty: string | number;
-        price: string;
-        total: string | number;
-    }[];
+    items: ItemType[];
 };
 
 export type ItemType = {
+    _id?: string;
     name: string;
-    qty: number;
+    qty: string | number;
     price: string;
     total: number;
 };

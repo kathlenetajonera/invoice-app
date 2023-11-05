@@ -1,3 +1,4 @@
+const { Types } = require("mongoose");
 const Invoice = require("../models/InvoiceModel");
 
 const getInvoices = async (req, res) => {
@@ -11,11 +12,22 @@ const getInvoices = async (req, res) => {
 
 const addInvoice = async (req, res) => {
     try {
-        if (!req.body) {
-            return res.status(400).json({ error: 'Invalid form data' });
-        }
         const payload = req.body;
         const invoice = await Invoice.create(payload);
+        
+        res.status(200).json(invoice);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+
+const updateInvoice = async (req, res) => {
+    try {
+        const referenceNumber = req.params.referenceNumber;
+        const invoice = await Invoice.findOneAndUpdate({referenceNumber}, {
+            ...req.body
+        }, {new: true});
         
         res.status(200).json(invoice);
     } catch (error) {
@@ -51,6 +63,7 @@ const deleteInvoice = async (req, res) => {
 module.exports = {
     getInvoices,
     addInvoice,
+    updateInvoice,
     getInvoiceByReferenceNumber,
     deleteInvoice,
 };

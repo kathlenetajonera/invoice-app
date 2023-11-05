@@ -23,7 +23,7 @@ export const initialValues = {
             name: '',
             qty: '',
             price: '',
-            total: '',
+            total: 0,
         },
     ],
 };
