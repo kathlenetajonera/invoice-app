@@ -10,6 +10,7 @@ import DateField from '../FormElements/DateField';
 import ItemList from './ItemList';
 import Button from '../Button';
 import Close from '../Icons/Close';
+import Overlay from '../Overlay';
 
 type Props = {
     showForm: boolean;
@@ -251,14 +252,7 @@ const InvoiceForm = ({
                 </Formik>
             </div>
 
-            <div
-                className={`fixed inset-0 bg-black transition-opacity duration-500 ${
-                    showForm
-                        ? 'opacity-60 pointer-events-auto'
-                        : 'opacity-0 pointer-events-none'
-                }`}
-                onClick={() => setShowForm(false)}
-            />
+            <Overlay show={showForm} setShow={setShowForm} />
         </>
     );
 };
