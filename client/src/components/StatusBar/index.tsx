@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { networkRequest } from '../../utils/networkRequest';
 import { InvoiceType } from '../InvoiceForm/types';
+import dayjs from 'dayjs';
 import Status from '../Status';
 import Button from '../Button';
 
@@ -32,7 +33,10 @@ const StatusBar = ({ status, refNumber, setShowForm, setInvoice }: Props) => {
         try {
             setIsUpdating(true);
 
-            const payload = { status: 'paid' };
+            const payload = {
+                status: 'paid',
+                paymentDate: dayjs().format('MM/DD/YYYY'),
+            };
             const res = await networkRequest(`api/invoice/${refNumber}`, {
                 method: 'PUT',
                 headers: {

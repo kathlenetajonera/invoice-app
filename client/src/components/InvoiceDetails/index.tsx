@@ -83,8 +83,8 @@ const InvoiceDetails = ({ data }: Props) => {
             <div>
                 <div className="bg-light-bg p-8 rounded-t-lg md:p-6">
                     <div className="flex mb-6 md:hidden">
-                        <p className="flex-1 basis-1/2">Item</p>
-                        <p className="flex-1">QTY.</p>
+                        <p className="basis-1/2">Item</p>
+                        <p className="flex-1 text-right">QTY.</p>
                         <p className="flex-1 text-right">Price</p>
                         <p className="flex-1 text-right">Total</p>
                     </div>
@@ -93,19 +93,20 @@ const InvoiceDetails = ({ data }: Props) => {
                         {items.map(({ _id, name, qty, price, total }) => (
                             <div
                                 key={_id}
-                                className="flex font-medium md:items-center"
+                                className="flex font-medium mb-4 md:items-center"
                             >
-                                <div className="flex-1 basis-1/2">
+                                <div className="basis-1/2">
                                     <p className="text-black">{name}</p>
-
                                     <div className="hidden md:block">
                                         <p>
                                             {qty} x {price}
                                         </p>
                                     </div>
                                 </div>
-                                <p className="flex-1 md:hidden">{qty}</p>
-                                <p className="flex-1 md:hidden text-right">
+                                <p className="flex-1 text-right md:hidden">
+                                    {qty}
+                                </p>
+                                <p className="flex-1 text-right md:hidden">
                                     {price}
                                 </p>
                                 <p className="flex-1 text-right text-black md:whitespace-nowrap">

@@ -13,6 +13,7 @@ function Home() {
     const [isLoading, setIsLoading] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const [invoices, setInvoices] = useState<InvoiceType[]>([]);
+    const [invoicesToRender, setInvoicesToRender] = useState<InvoiceType[]>([]);
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -20,6 +21,7 @@ function Home() {
 
         if (data && data.length) {
             setInvoices(data);
+            setInvoicesToRender(data);
         }
 
         setIsLoading(false);
@@ -42,16 +44,21 @@ function Home() {
                     </h1>
                     <p
                         className={`text-gray ${
-                            invoices.length === 0 ? 'opacity-0' : 'opacity-100'
+                            invoicesToRender.length === 0
+                                ? 'opacity-0'
+                                : 'opacity-100'
                         }`}
                     >
                         <span className="md:hidden">There are</span>{' '}
-                        {invoices.length} total invoices
+                        {invoicesToRender.length} total invoices
                     </p>
                 </div>
 
                 <div className="flex items-center">
-                    <StatusFilter />
+                    <StatusFilter
+                        invoices={invoices}
+                        setInvoicesToRender={setInvoicesToRender}
+                    />
                     <Button
                         icon={<Plus />}
                         label={window.innerWidth < 768 ? 'New' : 'New invoice'}
@@ -64,7 +71,7 @@ function Home() {
                 {isLoading ? (
                     <Loading />
                 ) : (
-                    invoices.map((invoice: InvoiceType) => (
+                    invoicesToRender.map((invoice: InvoiceType) => (
                         <Card key={invoice._id} {...invoice} />
                     ))
                 )}

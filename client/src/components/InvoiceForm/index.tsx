@@ -27,11 +27,11 @@ const InvoiceForm = ({
     const [isSubmitting, setIsSubmitting] = useState('');
     const status = useRef(initialData?.status || 'pending');
 
-    const handleSubmit = async (data: InvoiceType) => {
+    const handleSubmit = async (data: InvoiceType, { resetForm }: any) => {
         setIsSubmitting(status.current);
 
         if (initialData) {
-            submitForm(data, 'update');
+            submitForm(data, 'update', resetForm);
             return;
         }
 
@@ -46,10 +46,14 @@ const InvoiceForm = ({
             paymentDate: '',
         };
 
-        submitForm(payload, 'create');
+        submitForm(payload, 'create', resetForm);
     };
 
-    const submitForm = async (payload: InvoiceType, action: string) => {
+    const submitForm = async (
+        payload: InvoiceType,
+        action: string,
+        resetForm: () => void
+    ) => {
         try {
             const isUpdate = action === 'update';
             const endpoint = `api/invoice${
@@ -68,14 +72,15 @@ const InvoiceForm = ({
                 setShowForm(false);
                 setIsSubmitting('');
                 updateState(res);
+                resetForm();
             }
         } catch (error) {
             console.log('\x1b[36m%s\x1b[0m', 'Error: ', error);
         }
     };
 
-    const handleDiscard = (resetForm: () => void) => {
-        resetForm();
+    const handleDiscard = (handleReset: () => void) => {
+        handleReset();
         setShowForm(false);
     };
 
@@ -100,7 +105,7 @@ const InvoiceForm = ({
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
-                    {({ resetForm }) => (
+                    {({ handleReset }) => (
                         <Form>
                             <div className="mb-10">
                                 <p className="text-violet mb-4">Bill From</p>
@@ -190,7 +195,7 @@ const InvoiceForm = ({
                                             variant="tertiary"
                                             label="Cancel"
                                             onClick={() =>
-                                                handleDiscard(resetForm)
+                                                handleDiscard(handleReset)
                                             }
                                         />
                                     </span>
@@ -205,7 +210,9 @@ const InvoiceForm = ({
                                     <Button
                                         variant="tertiary"
                                         label="Discard"
-                                        onClick={() => handleDiscard(resetForm)}
+                                        onClick={() =>
+                                            handleDiscard(handleReset)
+                                        }
                                     />
 
                                     <div
