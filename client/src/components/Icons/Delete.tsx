@@ -8,7 +8,7 @@ const Delete = ({ onClick }: Props) => {
             width="13"
             height="16"
             xmlns="http://www.w3.org/2000/svg"
-            className="fill-[#888EB0] transition-[fill] cursor-pointer hover:fill-red"
+            className="fill-[#888EB0] transition-[fill] cursor-pointer hover:fill-red mb-1"
             onClick={onClick}
         >
             <path

@@ -27,7 +27,7 @@ const SelectField = ({ name, label, options }: SelectFieldProps) => {
     }, []);
 
     return (
-        <div className="relative mb-6">
+        <div className="relative mb-6 md:mb-5">
             <div className="flex justify-between items-center">
                 <label className={labelClassName}>{label}</label>
                 <ErrorMessage

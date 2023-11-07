@@ -115,7 +115,7 @@ const InvoiceForm = ({
                                     label="Street address"
                                 />
 
-                                <div className="grid grid-cols-3 gap-6 -mb-6 md:gap-3">
+                                <div className="grid grid-cols-3 gap-6 -mb-6 md:grid-cols-1 md:gap-0">
                                     <TextField
                                         name="billFrom.city"
                                         label="City"
@@ -145,7 +145,7 @@ const InvoiceForm = ({
                                     label="Street Address"
                                 />
 
-                                <div className="grid grid-cols-3 gap-6 md:gap-3">
+                                <div className="grid grid-cols-3 gap-6 md:grid-cols-1 md:gap-0">
                                     <TextField
                                         name="billTo.city"
                                         label="City"
@@ -160,7 +160,7 @@ const InvoiceForm = ({
                                     />
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-6 md:gap-3">
+                                <div className="grid grid-cols-2 gap-6 md:grid-cols-1 md:gap-0">
                                     <DateField
                                         name="date"
                                         label="Invoice Date"

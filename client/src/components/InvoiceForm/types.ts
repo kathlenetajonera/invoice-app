@@ -26,7 +26,7 @@ export type InvoiceType = {
 export type ItemType = {
     _id?: string;
     name: string;
-    qty: string | number;
+    qty: any;
     price: string;
     total: number;
 };

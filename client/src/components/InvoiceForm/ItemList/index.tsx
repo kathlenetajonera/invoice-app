@@ -17,11 +17,11 @@ const ItemList = ({ name }: FieldProps) => {
     return (
         <div className="mt-6">
             {meta.value.length > 0 && (
-                <div className="grid grid-cols-4 gap-6">
-                    <p className={labelClassName}>Item Name</p>
-                    <p className={labelClassName}>Qty.</p>
-                    <p className={labelClassName}>Price</p>
-                    <p className={labelClassName}>Total</p>
+                <div className="grid grid-cols-4 gap-6 md:hidden">
+                    <label className={labelClassName}>Item Name</label>
+                    <label className={labelClassName}>Qty.</label>
+                    <label className={labelClassName}>Price</label>
+                    <label className={labelClassName}>Total</label>
                 </div>
             )}
 

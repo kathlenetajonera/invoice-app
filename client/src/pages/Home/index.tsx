@@ -50,7 +50,8 @@ function Home() {
                         }`}
                     >
                         <span className="md:hidden">There are</span>{' '}
-                        {invoicesToRender.length} total invoices
+                        {invoicesToRender.length}{' '}
+                        <span className="md:hidden">total</span> invoices
                     </p>
                 </div>
 

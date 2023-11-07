@@ -40,7 +40,7 @@ const DateField = ({ name, label }: FieldProps) => {
     );
 
     return (
-        <label className={labelClassName}>
+        <label className={`${labelClassName} md:mb-3.5`}>
             <div className="flex justify-between items-center">
                 {label}
                 <ErrorMessage

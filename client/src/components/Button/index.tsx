@@ -32,10 +32,10 @@ const Button = ({
         <button
             type={type}
             className={`${variants[buttonType]} ${
-                icon ? 'pl-2 pr-4' : 'px-6'
+                icon ? 'pl-2 pr-4' : 'px-6 md:px-4'
             } ${
                 disabled ? 'opacity-40 pointer-events-none' : ''
-            } rounded-full h-12 flex items-center justify-center cursor-pointer transition-opacity hover:opacity-80`}
+            } rounded-full h-12 flex items-center justify-center cursor-pointer transition-opacity hover:opacity-80 md:text-sm`}
             onClick={onClick}
         >
             {icon && <span className="mr-3">{icon}</span>}

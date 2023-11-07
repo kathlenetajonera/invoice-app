@@ -9,7 +9,7 @@ const TextField = ({ name, label }: FieldProps) => {
     const [_, meta] = useField(name);
 
     return (
-        <div className="mb-6">
+        <div className="mb-6 md:mb-5">
             <label className={labelClassName}>
                 <div className="flex justify-between items-center">
                     {label}

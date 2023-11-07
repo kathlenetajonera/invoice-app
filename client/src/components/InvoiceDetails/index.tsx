@@ -47,7 +47,7 @@ const InvoiceDetails = ({ data }: Props) => {
             </div>
 
             <div className="flex justify-between mt-6 mb-8 max-w-[85%] md:max-w-full md:flex-wrap">
-                <div>
+                <div className="md:flex-1">
                     <div className="mb-8">
                         <p>Invoice Date</p>
                         <p className="text-black text-lg font-semibold">
@@ -61,7 +61,7 @@ const InvoiceDetails = ({ data }: Props) => {
                         </p>
                     </div>
                 </div>
-                <div>
+                <div className="md:flex-1">
                     <p>Bill To</p>
                     <p className="text-black text-lg font-semibold">
                         {clientName}
@@ -72,7 +72,7 @@ const InvoiceDetails = ({ data }: Props) => {
                     <p>{toPostCode}</p>
                     <p>{toCountry}</p>
                 </div>
-                <div className="md:mt-6">
+                <div className="md:basis-full md:mt-6">
                     <p>Sent To</p>
                     <p className="text-black text-lg font-semibold">
                         {clientEmail}
@@ -83,7 +83,7 @@ const InvoiceDetails = ({ data }: Props) => {
             <div>
                 <div className="bg-light-bg p-8 rounded-t-lg md:p-6">
                     <div className="flex mb-6 md:hidden">
-                        <p className="basis-1/2">Item</p>
+                        <p className="basis-1/3">Item</p>
                         <p className="flex-1 text-right">QTY.</p>
                         <p className="flex-1 text-right">Price</p>
                         <p className="flex-1 text-right">Total</p>
@@ -93,11 +93,11 @@ const InvoiceDetails = ({ data }: Props) => {
                         {items.map(({ _id, name, qty, price, total }) => (
                             <div
                                 key={_id}
-                                className="flex font-medium mb-4 md:items-center"
+                                className="flex font-medium mb-4 md:items-start"
                             >
-                                <div className="basis-1/2">
+                                <div className="basis-1/3">
                                     <p className="text-black">{name}</p>
-                                    <div className="hidden md:block">
+                                    <div className="text-sm hidden md:block">
                                         <p>
                                             {qty} x {price}
                                         </p>
