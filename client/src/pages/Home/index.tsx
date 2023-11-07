@@ -10,6 +10,7 @@ import Button from '../../components/Button';
 import Card from '../../components/Card';
 import Plus from '../../components/Icons/Plus';
 import Loading from './loading';
+import EmptyPlaceholder from '../../components/EmptyPlaceholder';
 
 function Home() {
     const [isLoading, setIsLoading] = useState(false);
@@ -45,13 +46,7 @@ function Home() {
                     <h1 className="text-[2rem] leading-9 font-semibold dark:text-white">
                         Invoices
                     </h1>
-                    <p
-                        className={`text-gray ${
-                            invoicesToRender.length === 0
-                                ? 'opacity-0'
-                                : 'opacity-100'
-                        }`}
-                    >
+                    <p className={`text-gray`}>
                         <span className="md:hidden">There are</span>{' '}
                         {invoicesToRender.length}{' '}
                         <span className="md:hidden">total</span> invoices
@@ -71,27 +66,26 @@ function Home() {
                 </div>
             </div>
 
-            <div>
-                {isLoading ? (
-                    <Loading />
-                ) : (
-                    <motion.div
-                        key={invoicesToRender.length}
-                        variants={containerVariant}
-                        initial="hidden"
-                        animate="visible"
-                    >
-                        {invoicesToRender.map((invoice: InvoiceType) => (
-                            <motion.div
-                                key={invoice._id}
-                                variants={cardVariant}
-                            >
-                                <Card {...invoice} />
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                )}
-            </div>
+            {isLoading && <Loading />}
+
+            {!isLoading && invoicesToRender?.length > 0 && (
+                <motion.div
+                    key={invoicesToRender.length}
+                    variants={containerVariant}
+                    initial="hidden"
+                    animate="visible"
+                >
+                    {invoicesToRender.map((invoice: InvoiceType) => (
+                        <motion.div key={invoice._id} variants={cardVariant}>
+                            <Card {...invoice} />
+                        </motion.div>
+                    ))}
+                </motion.div>
+            )}
+
+            {!isLoading && invoicesToRender?.length === 0 && (
+                <EmptyPlaceholder />
+            )}
 
             <InvoiceForm
                 showForm={showForm}
