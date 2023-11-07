@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { networkRequest } from '../../utils/networkRequest';
 import { InvoiceType } from '../../components/InvoiceForm/types';
+import { motion } from 'framer-motion';
+import { cardVariant, containerVariant } from './transitions';
 import Container from '../../components/Layout/Container';
 import StatusFilter from '../../components/StatusFilter';
 import InvoiceForm from '../../components/InvoiceForm';
@@ -72,9 +74,21 @@ function Home() {
                 {isLoading ? (
                     <Loading />
                 ) : (
-                    invoicesToRender.map((invoice: InvoiceType) => (
-                        <Card key={invoice._id} {...invoice} />
-                    ))
+                    <motion.div
+                        key={invoicesToRender.length}
+                        variants={containerVariant}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        {invoicesToRender.map((invoice: InvoiceType) => (
+                            <motion.div
+                                key={invoice._id}
+                                variants={cardVariant}
+                            >
+                                <Card {...invoice} />
+                            </motion.div>
+                        ))}
+                    </motion.div>
                 )}
             </div>
 
