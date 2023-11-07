@@ -31,6 +31,7 @@ function Home() {
 
     const updateList = (data: InvoiceType) => {
         setInvoices((list) => [...list, data]);
+        setInvoicesToRender((list) => [...list, data]);
     };
 
     useEffect(() => {
