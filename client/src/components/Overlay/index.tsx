@@ -6,7 +6,7 @@ type Props = {
 const Overlay = ({ show, setShow }: Props) => {
     return (
         <div
-            className={`fixed inset-0 bg-black transition-opacity duration-500 ${
+            className={`fixed inset-0 bg-black dark:bg-gray transition-opacity duration-500 ${
                 show
                     ? 'opacity-60 pointer-events-auto'
                     : 'opacity-0 pointer-events-none'

@@ -39,7 +39,7 @@ function Home() {
         <Container>
             <div className="relative flex justify-between items-center mb-14">
                 <div>
-                    <h1 className="text-[2rem] leading-9 font-semibold">
+                    <h1 className="text-[2rem] leading-9 font-semibold dark:text-white">
                         Invoices
                     </h1>
                     <p

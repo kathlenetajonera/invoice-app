@@ -79,7 +79,7 @@ const InputItem = ({ index, item, handleDelete }: Props) => {
                         type="text"
                         disabled
                         value={formatCurrency(total)}
-                        className="w-full bg-transparent text-black font-bold pr-4"
+                        className="w-full flex-1 bg-transparent text-black dark:text-white font-bold pr-4"
                     />
                     <Delete onClick={handleDelete} />
                 </div>

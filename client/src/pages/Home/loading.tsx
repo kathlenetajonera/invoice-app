@@ -6,7 +6,7 @@ function Loading() {
             {cards.map((idx) => (
                 <div
                     key={idx}
-                    className="w-full h-[70px] bg-light-black rounded-lg mb-4"
+                    className="w-full h-[70px] bg-light-black dark:bg-dark-card rounded-lg mb-4"
                 ></div>
             ))}
         </div>

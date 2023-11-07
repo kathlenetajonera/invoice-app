@@ -82,7 +82,7 @@ const StatusFilter = ({ invoices, setInvoicesToRender }: Props) => {
             <span className="flex items-baseline mr-8 md:mr-4">
                 <button
                     ref={ref}
-                    className="mr-3 text-sm font-medium"
+                    className="mr-3 text-sm font-medium dark:text-white"
                     onClick={() => setShowFilter(!showFilter)}
                 >
                     Filter<span className="md:hidden"> by Status</span>
@@ -92,7 +92,7 @@ const StatusFilter = ({ invoices, setInvoicesToRender }: Props) => {
 
             {statusList.length > 0 && (
                 <div
-                    className={`w-[11.25rem] absolute bottom-0 translate-y-[115%] bg-white p-6 rounded-lg shadow-dropdown z-10 transition-opacity ${
+                    className={`w-[11.25rem] absolute bottom-0 translate-y-[115%] bg-white dark:bg-dark-card dark:text-white p-6 rounded-lg shadow-dropdown z-10 transition-opacity ${
                         showFilter
                             ? 'opacity-100 pointer-events-auto'
                             : 'opacity-0 pointer-events-none'

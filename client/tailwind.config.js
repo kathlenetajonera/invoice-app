@@ -3,6 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 export default {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+    darkMode: 'class',
     theme: {
         extend: {
             screens: {
@@ -42,6 +43,9 @@ export default {
                 'light-green': 'rgba(51,214,159,.06)',
                 'light-orange': 'rgba(255,143,0,.06)',
                 'light-black': 'rgba(55, 59, 83, 0.06)',
+                dark: '#141625',
+                'dark-card': '#1e2139',
+                'dark-lighter': '#252945',
             },
             backgroundImage: {
                 check: 'url("/src/assets/icon-check.svg")',

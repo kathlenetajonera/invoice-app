@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html.dark {
+    background-color: #141625;
+}
+
 #invoice-form::-webkit-scrollbar {
     width: 8px;
 }

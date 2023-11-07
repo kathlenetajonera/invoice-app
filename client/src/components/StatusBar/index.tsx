@@ -51,12 +51,12 @@ const StatusBar = ({ status, refNumber, setShowForm, setInvoice }: Props) => {
 
     return (
         <>
-            <div className="flex justify-between bg-white py-6 px-8 rounded-lg shadow-item mb-6">
+            <div className="flex justify-between bg-white dark:bg-dark-card py-6 px-8 rounded-lg shadow-item mb-6">
                 <div className="flex items-center md:w-full md:justify-between">
                     <p className="text-gray mr-4">Status</p>
                     <Status type={status} />
                 </div>
-                <div className="flex items-center md:fixed md:bottom-0 md:left-0 md:bg-white md:w-full md:flex md:justify-center md:p-6">
+                <div className="flex items-center md:fixed md:bottom-0 md:left-0 md:bg-white md:dark:bg-dark-card md:w-full md:flex md:justify-center md:p-6">
                     <span className="mr-2">
                         <Button
                             variant="tertiary"

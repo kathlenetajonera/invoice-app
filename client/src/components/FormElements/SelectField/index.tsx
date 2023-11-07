@@ -47,7 +47,7 @@ const SelectField = ({ name, label, options }: SelectFieldProps) => {
                 <span>{meta.value}</span>
             </button>
             <ul
-                className={`absolute bottom-0 left-0 translate-y-[105%] w-full bg-white shadow-dropdown rounded-lg ${
+                className={`absolute bottom-0 left-0 translate-y-[105%] w-full bg-white dark:bg-dark-card shadow-dropdown rounded-lg ${
                     showDropdown
                         ? 'opacity-100 pointer-events-auto'
                         : 'opacity-0 pointer-events-none'
@@ -56,7 +56,7 @@ const SelectField = ({ name, label, options }: SelectFieldProps) => {
                 {options.map(({ value, label }) => (
                     <li
                         key={value}
-                        className="flex items-center px-4 h-[3.125rem] border-b-[1px] border-b-input text-black font-semibold cursor-pointer transition-[color] hover:text-violet"
+                        className="flex items-center px-4 h-[3.125rem] border-b-[1px] border-b-input dark:border-b-gray last:border-b-0 text-black dark:text-white font-semibold cursor-pointer transition-[color] hover:text-violet"
                         onClick={() => handleClick(label)}
                     >
                         {label}

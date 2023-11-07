@@ -10,8 +10,8 @@ export const variants = {
         text: 'text-orange',
     },
     draft: {
-        bg: 'bg-light-black',
-        dot: 'bg-black',
-        text: 'text-black',
+        bg: 'bg-light-black dark:bg-dark-lighter',
+        dot: 'bg-black dark:bg-[#dfe3fa]',
+        text: 'text-black dark:text-[#dfe3fa]',
     },
 };

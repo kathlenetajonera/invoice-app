@@ -16,13 +16,13 @@ const Card = (props: InvoiceType) => {
     return (
         <Link
             to={`/invoice/${referenceNumber}`}
-            className="bg-white flex items-center justify-between py-4 px-6 rounded-lg text-15 text-gray mb-4 shadow-item cursor-pointer transition-[border] border-[1px] border-transparent hover:border-violet md:flex-col md:p-6 md:pb-4"
+            className="bg-white flex items-center justify-between py-4 px-6 rounded-lg text-15 text-gray mb-4 shadow-item cursor-pointer transition-[border] border-[1px] border-transparent hover:border-violet md:flex-col md:p-6 md:pb-4 dark:bg-dark-card"
         >
             <div className="flex items-center md:w-full md:justify-between md:items-start">
                 <div className="flex items-center md:flex-col md:items-start">
                     <p className="w-20 mr-10 md:mb-4">
                         #
-                        <span className="text-black font-bold">
+                        <span className="text-black font-bold dark:text-white">
                             {referenceNumber}
                         </span>
                     </p>
@@ -31,7 +31,7 @@ const Card = (props: InvoiceType) => {
                 <p className="capitalize mr-10 md:mr-0">{clientName}</p>
             </div>
             <div className="flex items-center md:w-full md:justify-between">
-                <p className="mr-9 text-xl text-black font-semibold">
+                <p className="mr-9 text-xl text-black font-semibold dark:text-white">
                     {formatCurrency(total)}
                 </p>
                 <span className="relative mr-4 md:mr-0 md:-top-3">

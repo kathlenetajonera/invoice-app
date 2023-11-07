@@ -42,7 +42,7 @@ const ItemList = ({ name }: FieldProps) => {
                         ))}
                         <button
                             type="button"
-                            className="w-full text-gray font-medium bg-light-bg p-4 rounded-full transition-[background] hover:bg-[#dfe3fa]"
+                            className="w-full text-gray dark:text-white font-medium bg-light-bg dark:bg-dark-card p-4 rounded-full transition-[background] hover:bg-[#dfe3fa]"
                             onClick={() => arrayHelpers.push(itemTemplate)}
                         >
                             + Add New Item

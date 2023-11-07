@@ -89,12 +89,14 @@ const InvoiceForm = ({
         <>
             <div
                 id="invoice-form"
-                className={`fixed top-0 left-0 bottom-0 bg-white w-form-container ml-[calc(5.813rem-1rem)] p-12 overflow-y-auto z-10 transition-transform duration-500 ${
+                className={`fixed top-0 left-0 bottom-0 bg-white dark:bg-dark w-form-container ml-[calc(5.813rem-1rem)] p-12 overflow-y-auto z-10 transition-transform duration-500 ${
                     showForm ? 'translate-x-0' : '-translate-x-full'
                 } lg:ml-0 lg:mt-navbar md:w-full md:p-6`}
             >
                 <div className="mb-8 md:flex md:items-center md:justify-between">
-                    <h2 className="text-3xl font-semibold">New Invoice</h2>
+                    <h2 className="text-3xl font-semibold dark:text-white">
+                        New Invoice
+                    </h2>
                     <Close
                         customClass="hidden md:block"
                         onClick={() => setShowForm(false)}

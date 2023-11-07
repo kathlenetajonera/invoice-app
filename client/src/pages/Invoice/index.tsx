@@ -40,7 +40,7 @@ function Invoice({ match }: RouteComponentProps<Params>) {
         <Container>
             <Link to="/" className="inline-flex items-center text-sm mb-6">
                 <ArrowLeft />
-                <span className="ml-6">Go back</span>
+                <span className="ml-6 dark:text-white">Go back</span>
             </Link>
             {isLoading && <Loading />}
             {invoice ? (
