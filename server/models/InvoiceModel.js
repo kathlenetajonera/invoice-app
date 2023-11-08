@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const itemSchema = new Schema({
     name: String,
-    qty: Number,
+    qty: String,
     price: String,
     total: Number,
 });

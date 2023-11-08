@@ -21,8 +21,11 @@ const numberMask = createNumberMask({
 const InputItem = ({ index, item, handleDelete }: Props) => {
     const [_, meta, helpers] = useField(`items.${index}`);
     const { setValue } = helpers;
+    const inputStyles =
+        meta.touched && meta.error ? 'border-red dark:border-red' : '';
+
     const [priceField] = useField(`items.${index}.price`);
-    const price = item?.price ? sanitizePrice(item?.price) : 0;
+    const price = (item?.price ? sanitizePrice(item?.price) : 0) as number;
     const total = item?.qty * price;
 
     useEffect(() => {
@@ -37,9 +40,7 @@ const InputItem = ({ index, item, handleDelete }: Props) => {
                 </label>
                 <Field
                     name={`items.${index}.name`}
-                    className={`${inputClassName} ${
-                        meta.touched && meta.error ? 'border-red' : ''
-                    }`}
+                    className={`${inputClassName} ${inputStyles}`}
                 />
             </div>
 
@@ -50,9 +51,7 @@ const InputItem = ({ index, item, handleDelete }: Props) => {
                 <Field
                     type="number"
                     name={`items.${index}.qty`}
-                    className={`${inputClassName} ${
-                        meta.touched && meta.error ? 'border-red' : ''
-                    }`}
+                    className={`${inputClassName} ${inputStyles}`}
                     min={1}
                 />
             </div>
@@ -63,9 +62,7 @@ const InputItem = ({ index, item, handleDelete }: Props) => {
                 </label>
                 <MaskedInput
                     mask={numberMask}
-                    className={`${inputClassName} ${
-                        meta.touched && meta.error ? 'border-red' : ''
-                    }`}
+                    className={`${inputClassName} ${inputStyles}`}
                     {...priceField}
                 />
             </div>

@@ -37,7 +37,7 @@ const DeleteConfirmation = ({ show, setShow, refNumber }: Props) => {
                     show
                         ? '-translate-y-1/2 opacity-100 pointer-events-auto'
                         : '-translate-y-1/3 opacity-0 pointer-events-none'
-                } transition-all duration-300 bg-white dark:bg-dark-card w-[30rem] p-8 rounded-lg z-10`}
+                } transition-all duration-300 bg-white dark:bg-dark-card w-[30rem] p-8 rounded-lg z-10 md:w-[90%]`}
             >
                 <h3 className="text-2xl font-medium dark:text-white">
                     Confirm Deletion

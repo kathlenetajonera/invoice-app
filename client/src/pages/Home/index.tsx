@@ -13,7 +13,7 @@ import Loading from './loading';
 import EmptyPlaceholder from '../../components/EmptyPlaceholder';
 
 function Home() {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const [invoices, setInvoices] = useState<InvoiceType[]>([]);
     const [invoicesToRender, setInvoicesToRender] = useState<InvoiceType[]>([]);

@@ -14,5 +14,7 @@ export const formatToDateString = (date: string) => {
 };
 
 export const sanitizePrice = (val: string | number) => {
-    return typeof val === 'number' ? val : parseFloat(val.replace(/\D+/g, ''));
+    return typeof val === 'number'
+        ? val
+        : parseFloat(val.replace(/[₱,]/g, '')).toFixed(2);
 };

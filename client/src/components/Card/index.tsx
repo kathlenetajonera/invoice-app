@@ -26,7 +26,9 @@ const Card = (props: InvoiceType) => {
                             {referenceNumber}
                         </span>
                     </p>
-                    <p className="mr-10">Due {formatToDateString(date)}</p>
+                    <p className="mr-10">
+                        {date ? `Due ${formatToDateString(date)}` : ''}
+                    </p>
                 </div>
                 <p className="capitalize mr-10 md:mr-0">{clientName}</p>
             </div>

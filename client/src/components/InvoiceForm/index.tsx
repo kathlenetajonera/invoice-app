@@ -28,7 +28,8 @@ const InvoiceForm = ({
     const [isSubmitting, setIsSubmitting] = useState('');
     const status = useRef(initialData?.status || 'pending');
 
-    const handleSubmit = async (data: InvoiceType, { resetForm }: any) => {
+    const handleSubmit = async (data: InvoiceType, config?: any) => {
+        const resetForm = config?.resetForm;
         setIsSubmitting(status.current);
 
         if (initialData) {
@@ -73,7 +74,7 @@ const InvoiceForm = ({
                 setShowForm(false);
                 setIsSubmitting('');
                 updateState(res);
-                resetForm();
+                resetForm && resetForm();
             }
         } catch (error) {
             console.log('\x1b[36m%s\x1b[0m', 'Error: ', error);
@@ -108,7 +109,7 @@ const InvoiceForm = ({
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
-                    {({ handleReset }) => (
+                    {({ values, handleReset }) => (
                         <Form>
                             <div className="mb-10">
                                 <p className="text-violet mb-4">Bill From</p>
@@ -227,15 +228,15 @@ const InvoiceForm = ({
                                     >
                                         <span className="mr-2">
                                             <Button
-                                                type="submit"
                                                 variant="secondary"
                                                 label="Save as Draft"
                                                 loading={
                                                     isSubmitting === 'draft'
                                                 }
-                                                onClick={() =>
-                                                    (status.current = 'draft')
-                                                }
+                                                onClick={() => {
+                                                    status.current = 'draft';
+                                                    handleSubmit(values);
+                                                }}
                                             />
                                         </span>
                                         <Button

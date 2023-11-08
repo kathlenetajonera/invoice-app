@@ -51,20 +51,20 @@ const InvoiceDetails = ({ data }: Props) => {
                     <div className="mb-8">
                         <p>Invoice Date</p>
                         <p className="text-black dark:text-white text-lg font-semibold">
-                            {formatToDateString(date)}
+                            {date ? formatToDateString(date) : 'No data'}
                         </p>
                     </div>
                     <div>
                         <p>Payment Date</p>
                         <p className="text-black dark:text-white text-lg font-semibold">
-                            {formatToDateString(date)}
+                            {date ? formatToDateString(date) : 'No data'}
                         </p>
                     </div>
                 </div>
                 <div className="md:flex-1">
                     <p>Bill To</p>
                     <p className="text-black dark:text-white text-lg font-semibold">
-                        {clientName}
+                        {clientName || 'No data'}
                     </p>
 
                     <p>{toStreetAddress}</p>
@@ -75,7 +75,7 @@ const InvoiceDetails = ({ data }: Props) => {
                 <div className="md:basis-full md:mt-6">
                     <p>Sent To</p>
                     <p className="text-black dark:text-white text-lg font-semibold">
-                        {clientEmail}
+                        {clientEmail || 'No data'}
                     </p>
                 </div>
             </div>
@@ -95,7 +95,7 @@ const InvoiceDetails = ({ data }: Props) => {
                                 key={_id}
                                 className="flex font-medium mb-4 md:items-start dark:text-white"
                             >
-                                <div className="basis-1/3">
+                                <div className="basis-1/3 md:flex-1">
                                     <p className="text-black dark:text-white">
                                         {name}
                                     </p>
