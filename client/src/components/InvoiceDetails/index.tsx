@@ -6,7 +6,7 @@ type Props = {
 };
 
 const InvoiceDetails = ({ data }: Props) => {
-    const { referenceNumber, projectDescription, date } = data;
+    const { referenceNumber, projectDescription, date, paymentDate } = data;
     const {
         streetAddress: fromStreetAddress,
         city: fromCity,
@@ -51,20 +51,22 @@ const InvoiceDetails = ({ data }: Props) => {
                     <div className="mb-8">
                         <p>Invoice Date</p>
                         <p className="text-black dark:text-white text-lg font-semibold">
-                            {date ? formatToDateString(date) : 'No data'}
+                            {date ? formatToDateString(date) : 'N/A'}
                         </p>
                     </div>
                     <div>
                         <p>Payment Date</p>
                         <p className="text-black dark:text-white text-lg font-semibold">
-                            {date ? formatToDateString(date) : 'No data'}
+                            {paymentDate
+                                ? formatToDateString(paymentDate)
+                                : 'N/A'}
                         </p>
                     </div>
                 </div>
                 <div className="md:flex-1">
                     <p>Bill To</p>
                     <p className="text-black dark:text-white text-lg font-semibold">
-                        {clientName || 'No data'}
+                        {clientName || 'N/A'}
                     </p>
 
                     <p>{toStreetAddress}</p>
@@ -75,7 +77,7 @@ const InvoiceDetails = ({ data }: Props) => {
                 <div className="md:basis-full md:mt-6">
                     <p>Sent To</p>
                     <p className="text-black dark:text-white text-lg font-semibold">
-                        {clientEmail || 'No data'}
+                        {clientEmail || 'N/A'}
                     </p>
                 </div>
             </div>

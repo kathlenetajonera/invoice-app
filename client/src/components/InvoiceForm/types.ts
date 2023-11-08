@@ -4,6 +4,7 @@ export type InvoiceType = {
     status?: string;
 
     date: string;
+    paymentDate: string;
     paymentTerms: string;
     projectDescription: string;
     billFrom: {
