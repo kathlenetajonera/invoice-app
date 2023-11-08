@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 
 export const initialValues = {
     date: '',
+    paymentDate: '',
     paymentTerms: '',
     projectDescription: '',
     billFrom: {
