@@ -33,7 +33,8 @@ const InvoiceForm = ({
         setIsSubmitting(status.current);
 
         if (initialData) {
-            submitForm(data, 'update', resetForm);
+            const payload = { ...data, status: status.current };
+            submitForm(payload, 'update', resetForm);
             return;
         }
 
@@ -207,6 +208,9 @@ const InvoiceForm = ({
                                         type="submit"
                                         label="Save Changes"
                                         loading={isSubmitting.length > 0}
+                                        onClick={() =>
+                                            (status.current = 'pending')
+                                        }
                                     />
                                 </div>
                             ) : (
